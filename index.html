@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slideshow</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="slideshow">
+<div id="preloader">Even geduld, Bezig met laden...</div>
+<div id="slideshow" style="display: none;">
     <img click="toggleFullScreen" id="slideImage" src="assets/Slide1.png">
 </div>
 
@@ -40,6 +40,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     let currentSlide = 1;
     const totalSlides = 20;
+    let loadedImages = 0;
+
+    function preloadImages() {
+        for (let i = 1; i <= totalSlides; i++) {
+            const img = new Image();
+            img.src = `assets/Slide${i}.png`;
+            img.onload = imageLoaded;
+        }
+    }
+
+    function imageLoaded() {
+        loadedImages++;
+        if (loadedImages === totalSlides) {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('slideshow').style.display = 'block';
+            showSlide(currentSlide);
+        }
+    }
 
     function showSlide(number) {
         const slideImage = document.getElementById('slideImage');
@@ -67,6 +85,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             previousSlide();
         }
     });
+
+    preloadImages();
 });
 </script>
 </body>
@@ -77,6 +97,20 @@ body, html {
     height: 100%;
     display: flex;
     background-color: #f0f0f0;
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-size: 2em;
 }
 
 #slideshow {
