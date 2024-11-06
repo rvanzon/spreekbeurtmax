@@ -1,153 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batavia</title>
-</head>
-<body>
-
-<div id="preloader">Even geduld, Bezig met laden...</div>
-<div id="slideshow" style="display: none;">
-    <img click="toggleFullScreen" id="slideImage" class="fadeIn" src="assets/Slide1.png">
-</div>
-
-<script>
-    function toggleFullScreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-        });
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-    }
-}
-
-document.addEventListener('fullscreenchange', onFullScreenChange);
-
-function onFullScreenChange() {
-        if (document.fullscreenElement) {
-            document.body.classList.add('fullscreen-active');
-        } else {
-            document.body.classList.remove('fullscreen-active');
-        }
-    }
-document.addEventListener('click', toggleFullScreen);
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    
-    let currentSlide = 1;
-    const totalSlides = 20;
-    let loadedImages = 0;
-
-    function preloadImages() {
-        for (let i = 1; i <= totalSlides; i++) {
-            const img = new Image();
-            img.src = `assets/Slide${i}.png`;
-            img.onload = imageLoaded;
-        }
-    }
-
-    function imageLoaded() {
-        loadedImages++;
-        if (loadedImages === totalSlides) {
-            document.getElementById('preloader').style.display = 'none';
-            document.getElementById('slideshow').style.display = 'block';
-            showSlide(currentSlide);
-        }
-    }
-
-    function showSlide(number) {
-        const slideImage = document.getElementById('slideImage');
-        slideImage.style.opacity = 0;
-        slideImage.src = `assets/Slide${number}.png`;
-
-        slideImage.onload = () => {
-            slideImage.style.opacity = 1;
-        };
-    }
-
-    function nextSlide() {
-        if (currentSlide < totalSlides) {
-            currentSlide++;
-            showSlide(currentSlide);
-        }
-    }
-
-    function previousSlide() {
-        if (currentSlide > 1) {
-            currentSlide--;
-            showSlide(currentSlide);
-        }
-    }
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight' || event.key === ' ') {
-            nextSlide();
-        } else if (event.key === 'ArrowLeft') {
-            previousSlide();
-        }
-    });
-
-    preloadImages();
-});
-</script>
-</body>
-
-<style>
-body, html {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    background-color: #f0f0f0;
-}
-
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    font-size: 2em;
-}
-
-#slideshow {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ddd;
-    position: relative;
-}
-
-#slideImage {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0;
-    transition: opacity 1s ease;
-}
-
-.fullscreen-active {
-    cursor: none;
-}
-
-.fadeIn {
-    animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-</style>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Keynote</title>
+        <meta name="viewport" content="initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="assets/player/styles.css">
+    </head>
+    <body id="body" bgcolor="black">
+        <div id="stageArea">
+            <div id="stage" class="stage">
+            </div>
+            <div id="hyperlinkPlane" class="stage">
+            </div>
+        </div>
+        <div id="slideshowNavigator">
+        </div>
+        <div id="slideNumberControl">
+        </div>
+        <div id="slideNumberDisplay">
+        </div>
+        <div id="helpPlacard">
+        </div>
+        <div id="waitingIndicator">
+            <div id="waitingSpinner">
+            </div>
+        </div>
+        <script type="text/javascript" src="assets/player/pdfjs/bcmaps.js"></script></body>
+        <script type="text/javascript" src="assets/player/pdfjs/web/compatibility.js"></script></body>
+        <script type="text/javascript" src="assets/player/pdfjs/pdf.js"></script></body>
+        <script type="text/javascript" src="assets/player/main.js"></script></body>
+    </body>
 </html>
