@@ -29,5 +29,14 @@
         <script type="text/javascript" src="assets/player/pdfjs/web/compatibility.js"></script></body>
         <script type="text/javascript" src="assets/player/pdfjs/pdf.js"></script></body>
         <script type="text/javascript" src="assets/player/main.js"></script></body>
+        <script>
+            document.addEventListener("keydown", function (e) {
+                console.log(e.keyCode);
+                if (e.keyCode === 86) {
+                    window.location.href = "video.mp4";
+                }
+            });
+
+        </script>
     </body>
 </html>
