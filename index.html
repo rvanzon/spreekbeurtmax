@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slideshow</title>
+    <title>Batavia</title>
 </head>
 <body>
 
 <div id="preloader">Even geduld, Bezig met laden...</div>
 <div id="slideshow" style="display: none;">
-    <img click="toggleFullScreen" id="slideImage" src="assets/Slide1.png">
+    <img click="toggleFullScreen" id="slideImage" class="fadeIn" src="assets/Slide1.png">
 </div>
 
 <script>
@@ -61,7 +61,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function showSlide(number) {
         const slideImage = document.getElementById('slideImage');
+        slideImage.style.opacity = 0;
         slideImage.src = `assets/Slide${number}.png`;
+
+        slideImage.onload = () => {
+            slideImage.style.opacity = 1;
+        };
     }
 
     function nextSlide() {
@@ -124,10 +129,25 @@ body, html {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    opacity: 0;
+    transition: opacity 1s ease;
 }
 
 .fullscreen-active {
     cursor: none;
+}
+
+.fadeIn {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 </style>
 </html>
